@@ -28,10 +28,31 @@ class App extends Component {
     this.makeGetRequest()
   }
 
+  async deleteSong(id){
+    try{
+      await axios.delete('http://127.0.0.1:8000/music/' + id + '/');
+      this.state.songs = this.deletedSong(this.state.songs, id)
+      this.setState(this.state.songs)
+    }
+    catch (ex) {
+      console.log("error deleting song: " + ex);
+    }
+  }
+
+  deletedSong(songs, id){
+    let newSongs = []
+    songs.map((song) => {
+      if (song.id !== id){
+        newSongs.push(song)
+      }
+    })
+    return newSongs
+  }
+
   render(){
     return (
         <div className="App">
-            <MusicTable songs={this.state.songs}/>
+            <MusicTable songs={this.state.songs} deleteSong={(id) => this.deleteSong(id)}/>
         </div>
       );
   }

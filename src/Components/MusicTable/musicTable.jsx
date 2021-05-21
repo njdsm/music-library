@@ -1,5 +1,5 @@
+
 const MusicTable = (props) => {
-    console.log(props.songs)
     return(
         <div>
             <table>
@@ -11,6 +11,7 @@ const MusicTable = (props) => {
                     <th>Release Date</th>
                     <th>Genre</th>
                     <th>Likes</th>
+                    <th></th>
                 </tr>
                 {props.songs.map((song) =>
                     <tr>
@@ -21,12 +22,14 @@ const MusicTable = (props) => {
                         <td>{song.release_date}</td>
                         <td>{song.genre}</td>
                         <td>{song.likes}</td>
+                        <td><button onClick={props.deleteSong.bind(this, song.id)}>Delete</button></td>
                     </tr> 
                 )}
             </table>
         </div>
     )
 }
+
 
 
 export default MusicTable
