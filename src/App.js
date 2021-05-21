@@ -1,4 +1,5 @@
 import MusicTable from './Components/MusicTable/musicTable';
+import SongCreateForm from './Components/SongForm/songForm';
 import axios from 'axios';
 import './App.css';
 import { Component } from 'react';
@@ -16,8 +17,6 @@ class App extends Component {
         response.data.map((song) => {
           this.setState({songs: [...this.state.songs, song]})
         })
-       
-        console.log(this)
     }
     catch (ex) {
         console.log("error in API call: " + ex);
@@ -49,10 +48,30 @@ class App extends Component {
     return newSongs
   }
 
+  async addNewSong(title, artist, album, release_date, genre){
+    let newSong = {
+      'title': title,
+      'artist': artist, 
+      'album': album, 
+      'release_date': release_date, 
+      'likes': 0, 
+      'genre': genre
+    }
+    try{
+      const result = await axios.post('http://127.0.0.1:8000/music/', newSong)
+      newSong.id = result.data.id
+      this.setState({songs: [...this.state.songs, newSong]})
+    }
+    catch (ex) {
+      console.log("error creating song: " + ex);
+    }
+  }
+
   render(){
     return (
         <div className="App">
             <MusicTable songs={this.state.songs} deleteSong={(id) => this.deleteSong(id)}/>
+            <SongCreateForm func={(title, artist, album, release_date, genre) => this.addNewSong(title, artist, album, release_date, genre)} />
         </div>
       );
   }
