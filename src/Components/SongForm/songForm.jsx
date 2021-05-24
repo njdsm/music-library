@@ -21,17 +21,28 @@ class SongCreateForm extends React.Component {
     render(){
         return(
             <form action="" onSubmit={this.handleSubmit}>
-                <label>Title: </label>
-                <input type="text" name="title" value={this.state.title} onChange={this.handleChange}/><br></br>
-                <label>Artist: </label>
-                <input type="text" name="artist" value={this.state.artist} onChange={this.handleChange}/><br></br>
-                <label>Album: </label>
-                <input type="text" name="album" value={this.state.album} onChange={this.handleChange}/><br></br>
-                <label>Release Date: </label>
-                <input type="date" name="release_date" value={this.state.release_date} onChange={this.handleChange}/><br></br>
-                <label>Genre: </label>
-                <input type="text" name="genre" value={this.state.genre} onChange={this.handleChange}/><br></br>
-                <button>Submit</button>
+                <div className="form-group">
+                        <label>Title: </label>
+                        <input type="text" name="title" value={this.state.title} onChange={this.handleChange}/>
+                    </div>
+                    <div className="form-group">
+                        <label>Artist: </label>
+                        <input type="text" name="artist" value={this.state.artist} onChange={this.handleChange}/>
+                    </div>
+                    <div className="form-group">
+                        <label>Album: </label>
+                        <input type="text" name="album" value={this.state.album} onChange={this.handleChange}/>
+                    </div>
+                    <div className="form-group">
+                        <label>Release Date: </label>
+                        <input type="date" name="release_date" value={this.state.release_date} onChange={this.handleChange}/>
+                    </div>
+                    <div className="form-group">
+                        <label>Genre: </label>
+                        <input type="text" name="genre" value={this.state.genre} onChange={this.handleChange}/>
+                    </div>
+                    <button>Submit</button>
+                
             </form>
         )
     }

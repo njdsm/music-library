@@ -1,5 +1,6 @@
 import MusicTable from './Components/MusicTable/musicTable';
 import SongCreateForm from './Components/SongForm/songForm';
+import NavBar from './Components/NavBar/navBar';
 import axios from 'axios';
 import './App.css';
 import { Component } from 'react';
@@ -7,6 +8,7 @@ import { Component } from 'react';
 class App extends Component {
   state = {
     songs: [],
+    searchResults: [],
     dataReady: false
   }
 
@@ -67,11 +69,26 @@ class App extends Component {
     }
   }
 
+  async searchAll(query){
+    console.log("HERE")
+    debugger
+    try{
+      const result = await axios.get('http://127.0.0.1:8000/music/', query)
+      this.setState({searchResults: [...this.state.searchResults, result.data]})
+    }
+    catch (ex) {
+      console.log("error searching for songs: " + ex);
+    }
+  }
+
   render(){
     return (
         <div className="App">
+            <NavBar searchAll={(query) => this.searchAll(query)}/>
             <MusicTable songs={this.state.songs} deleteSong={(id) => this.deleteSong(id)}/>
             <SongCreateForm func={(title, artist, album, release_date, genre) => this.addNewSong(title, artist, album, release_date, genre)} />
+            <div><h1 align="center">Search Results</h1></div>
+            <MusicTable songs={this.state.searchResults} />
         </div>
       );
   }
