@@ -94,6 +94,7 @@ class App extends Component {
           return songs
         }
       })
+      this.setState({searchResults: []})
       result.map((song) => {
         this.setState({searchResults: [...this.state.searchResults, song]})
       })
