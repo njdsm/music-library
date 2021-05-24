@@ -3,7 +3,7 @@ import React from 'react';
 class NavBar extends React.Component{
     constructor(props){
         super(props)
-        this.state = {value: ''}
+        this.state = {search: ''}
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -13,17 +13,17 @@ class NavBar extends React.Component{
     }
 
     handleSubmit(event){
-        debugger
+        console.log(this.state.search)
         event.preventDefault();
-        this.props.searchAll(this.state.value)
+        this.props.searchAll(this.state.search)
     }
 
     render(){
         return(
             <nav className="navbar navbar-expand-sm bg-dark navbar-dark">
-                <form className="form-inline" action="/action_page.php">
-                    <input className="form-control mr-sm-2" type="text" name="search" placeholder="Search"/>
-                    <button className="btn btn-success" type="submit">Search</button>
+                <form className="form-inline" action="" onSubmit={this.handleSubmit}>
+                    <input className="form-control mr-sm-2" type="text" name="search" onChange={this.handleChange} placeholder="Search"/>
+                    <button className="btn btn-success">Search</button>
                 </form>
             </nav>
         )

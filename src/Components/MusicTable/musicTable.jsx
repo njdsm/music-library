@@ -2,7 +2,7 @@
 const MusicTable = (props) => {
     return(
         <div>
-            <table className="table table-dark table-hover" cellspacing="0" width="100%">
+            <table className="table table-dark table-hover" cellSpacing="0" width="100%">
                 <thead>
                     <tr> 
                         <th>Song Id</th>

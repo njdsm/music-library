@@ -70,11 +70,33 @@ class App extends Component {
   }
 
   async searchAll(query){
-    console.log("HERE")
     debugger
+    console.log(query)
     try{
-      const result = await axios.get('http://127.0.0.1:8000/music/', query)
-      this.setState({searchResults: [...this.state.searchResults, result.data]})
+      const response = await axios.get('http://127.0.0.1:8000/music/')
+      const result = response.data.filter(songs => {
+        if (songs.id === query){
+          return songs
+        }
+        else if (songs.artist.includes(query)){
+          return songs
+        }
+        else if (songs.title.includes(query)){
+          return songs
+        }
+        else if (songs.release_date.includes(query)){
+          return songs
+        }
+        else if (songs.album.includes(query)){
+          return songs
+        }
+        else if (songs.genre.includes(query)){
+          return songs
+        }
+      })
+      result.map((song) => {
+        this.setState({searchResults: [...this.state.searchResults, song]})
+      })
     }
     catch (ex) {
       console.log("error searching for songs: " + ex);
@@ -85,10 +107,13 @@ class App extends Component {
     return (
         <div className="App">
             <NavBar searchAll={(query) => this.searchAll(query)}/>
-            <MusicTable songs={this.state.songs} deleteSong={(id) => this.deleteSong(id)}/>
+            <div><h1 align="center" className="bg-dark text-white">Search Results</h1></div>
+            <MusicTable songs={this.state.searchResults} deleteSong={(id) => this.deleteSong(id)}/>
+            <div><h1 align="center" className="bg-dark text-white">Create New Song</h1></div>
             <SongCreateForm func={(title, artist, album, release_date, genre) => this.addNewSong(title, artist, album, release_date, genre)} />
-            <div><h1 align="center">Search Results</h1></div>
-            <MusicTable songs={this.state.searchResults} />
+            <div><h1 align="center" className="bg-dark text-white">All Songs</h1></div>
+            <MusicTable songs={this.state.songs} deleteSong={(id) => this.deleteSong(id)}/>
+
         </div>
       );
   }
