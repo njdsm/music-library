@@ -13,6 +13,7 @@ const MusicTable = (props) => {
                         <th>Genre</th>
                         <th>Likes</th>
                         <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -25,7 +26,8 @@ const MusicTable = (props) => {
                             <td>{song.release_date}</td>
                             <td>{song.genre}</td>
                             <td>{song.likes}</td>
-                            <td><button onClick={props.deleteSong.bind(this, song.id)}>Delete</button></td>
+                            <td><button className="btn btn-dark" onClick={props.updateSong.bind(this, song.id)}>Update</button></td>
+                            <td><button className="btn btn-dark" onClick={props.deleteSong.bind(this, song.id)}>Delete</button></td>
                         </tr> 
                     )}
                 </tbody>   

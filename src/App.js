@@ -1,7 +1,8 @@
 import MusicTable from './Components/MusicTable/musicTable';
 import SongCreateForm from './Components/SongForm/songForm';
 import NavBar from './Components/NavBar/navBar';
-import axios from 'axios';
+import axios from 'axios'
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import { Component } from 'react';
 
@@ -70,7 +71,6 @@ class App extends Component {
   }
 
   async searchAll(query){
-    debugger
     console.log(query)
     try{
       const response = await axios.get('http://127.0.0.1:8000/music/')
@@ -78,19 +78,19 @@ class App extends Component {
         if (songs.id === query){
           return songs
         }
-        else if (songs.artist.includes(query)){
+        else if (songs.artist.toLowerCase().includes(query.toLowerCase())){
           return songs
         }
-        else if (songs.title.includes(query)){
+        else if (songs.title.toLowerCase().includes(query.toLowerCase())){
           return songs
         }
         else if (songs.release_date.includes(query)){
           return songs
         }
-        else if (songs.album.includes(query)){
+        else if (songs.album.toLowerCase().includes(query.toLowerCase())){
           return songs
         }
-        else if (songs.genre.includes(query)){
+        else if (songs.genre.toLowerCase().includes(query.toLowerCase())){
           return songs
         }
       })
@@ -103,16 +103,20 @@ class App extends Component {
     }
   }
 
+  async updateSong(id){
+    return id
+  }
+
   render(){
     return (
         <div className="App bg-dark">
             <NavBar searchAll={(query) => this.searchAll(query)}/>
             <div><h1 align="center" className="bg-dark text-white">Search Results</h1></div>
-            <MusicTable songs={this.state.searchResults} deleteSong={(id) => this.deleteSong(id)}/>
+            <MusicTable songs={this.state.searchResults} updateSong={(id) => this.updateSong(id)} deleteSong={(id) => this.deleteSong(id)}/>
             <div><h1 align="center" className="bg-dark text-white">Create New Song</h1></div>
             <SongCreateForm func={(title, artist, album, release_date, genre) => this.addNewSong(title, artist, album, release_date, genre)} />
             <div><h1 align="center" className="bg-dark text-white">All Songs</h1></div>
-            <MusicTable songs={this.state.songs} deleteSong={(id) => this.deleteSong(id)}/>
+            <MusicTable songs={this.state.songs} updateSong={(id) => this.updateSong(id)} deleteSong={(id) => this.deleteSong(id)}/>
         </div>
       );
   }
