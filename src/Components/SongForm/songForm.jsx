@@ -1,4 +1,5 @@
 import React from 'react';
+import './songForm.css';
 
 class SongCreateForm extends React.Component {
     constructor(props){
@@ -21,27 +22,27 @@ class SongCreateForm extends React.Component {
     render(){
         return(
             <form action="" onSubmit={this.handleSubmit}>
-                <div className="form-group">
-                        <label>Title: </label>
-                        <input type="text" name="title" value={this.state.title} onChange={this.handleChange}/>
-                    </div>
-                    <div className="form-group">
-                        <label>Artist: </label>
-                        <input type="text" name="artist" value={this.state.artist} onChange={this.handleChange}/>
-                    </div>
-                    <div className="form-group">
-                        <label>Album: </label>
-                        <input type="text" name="album" value={this.state.album} onChange={this.handleChange}/>
-                    </div>
-                    <div className="form-group">
-                        <label>Release Date: </label>
-                        <input type="date" name="release_date" value={this.state.release_date} onChange={this.handleChange}/>
-                    </div>
-                    <div className="form-group">
-                        <label>Genre: </label>
-                        <input type="text" name="genre" value={this.state.genre} onChange={this.handleChange}/>
-                    </div>
-                    <button>Submit</button>
+                <div className="label">
+                    <label>Title: </label>
+                    <input type="text" name="title" value={this.state.title} onChange={this.handleChange}/>
+                </div>
+                <div className="label">
+                    <label>Artist: </label>
+                    <input type="text" name="artist" value={this.state.artist} onChange={this.handleChange}/>
+                </div>
+                <div className="label">
+                    <label>Album: </label>
+                    <input type="text" name="album" value={this.state.album} onChange={this.handleChange}/>
+                </div>
+                <div className="label">
+                    <label>Release Date: </label>
+                    <input type="date" name="release_date" value={this.state.release_date} onChange={this.handleChange}/>
+                </div>
+                <div className="label">
+                    <label>Genre: </label>
+                    <input type="text" name="genre" value={this.state.genre} onChange={this.handleChange}/>
+                </div>
+                <button>Submit</button>
                 
             </form>
         )

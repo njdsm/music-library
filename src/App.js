@@ -105,7 +105,7 @@ class App extends Component {
 
   render(){
     return (
-        <div className="App">
+        <div className="App bg-dark">
             <NavBar searchAll={(query) => this.searchAll(query)}/>
             <div><h1 align="center" className="bg-dark text-white">Search Results</h1></div>
             <MusicTable songs={this.state.searchResults} deleteSong={(id) => this.deleteSong(id)}/>
@@ -113,7 +113,6 @@ class App extends Component {
             <SongCreateForm func={(title, artist, album, release_date, genre) => this.addNewSong(title, artist, album, release_date, genre)} />
             <div><h1 align="center" className="bg-dark text-white">All Songs</h1></div>
             <MusicTable songs={this.state.songs} deleteSong={(id) => this.deleteSong(id)}/>
-
         </div>
       );
   }
