@@ -13,7 +13,6 @@ class NavBar extends React.Component{
     }
 
     handleSubmit(event){
-        console.log(this.state.search)
         event.preventDefault();
         this.props.searchAll(this.state.search)
     }

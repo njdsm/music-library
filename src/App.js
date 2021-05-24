@@ -1,8 +1,8 @@
 import MusicTable from './Components/MusicTable/musicTable';
 import SongCreateForm from './Components/SongForm/songForm';
 import NavBar from './Components/NavBar/navBar';
-import axios from 'axios'
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import UpdateSongModal from './Components/UpdateModal/updateModal';
+import axios from 'axios';
 import './App.css';
 import { Component } from 'react';
 
@@ -10,13 +10,20 @@ class App extends Component {
   state = {
     songs: [],
     searchResults: [],
-    dataReady: false
+    // show: false
   }
+
+  showModal = () => {
+    this.setState({ show: true });
+  };
+
+  hideModal = () => {
+    this.setState({ show: false });
+  };
 
   async makeGetRequest() {
     try{
         let response = await axios.get('http://127.0.0.1:8000/music/')
-        console.log(response.data)
         response.data.map((song) => {
           this.setState({songs: [...this.state.songs, song]})
         })
@@ -71,7 +78,6 @@ class App extends Component {
   }
 
   async searchAll(query){
-    console.log(query)
     try{
       const response = await axios.get('http://127.0.0.1:8000/music/')
       const result = response.data.filter(songs => {
@@ -104,22 +110,23 @@ class App extends Component {
     }
   }
 
-  async updateSong(id){
-    return id
-  }
+  // async updateSong(song){
+  //   return song
+  // }
 
   render(){
     return (
         <div className="App bg-dark">
-            <NavBar searchAll={(query) => this.searchAll(query)}/>
-            <div><h1 align="center" className="bg-dark text-white">Search Results</h1></div>
-            <MusicTable songs={this.state.searchResults} updateSong={(id) => this.updateSong(id)} deleteSong={(id) => this.deleteSong(id)}/>
-            <div><h1 align="center" className="bg-dark text-white">Create New Song</h1></div>
-            <SongCreateForm func={(title, artist, album, release_date, genre) => this.addNewSong(title, artist, album, release_date, genre)} />
-            <div><h1 align="center" className="bg-dark text-white">All Songs</h1></div>
-            <MusicTable songs={this.state.songs} updateSong={(id) => this.updateSong(id)} deleteSong={(id) => this.deleteSong(id)}/>
-        </div>
-      );
+          <NavBar searchAll={(query) => this.searchAll(query)}/>
+          {/* <UpdateSongModal show={this.state.show} updateSong={(song) => this.updateSong(song)}/> */}
+          <div><h1 align="center" className="bg-dark text-white">Search Results</h1></div>
+          <MusicTable songs={this.state.searchResults} updateSong={(id) => this.updateSong(id)} deleteSong={(id) => this.deleteSong(id)}/>
+          <div><h1 align="center" className="bg-dark text-white">Create New Song</h1></div>
+          <SongCreateForm func={(title, artist, album, release_date, genre) => this.addNewSong(title, artist, album, release_date, genre)} />
+          <div><h1 align="center" className="bg-dark text-white">All Songs</h1></div>
+          <MusicTable songs={this.state.songs} updateSong={(id) => this.updateSong(id)} deleteSong={(id) => this.deleteSong(id)}/>
+      </div>
+    );
   }
 }
 
